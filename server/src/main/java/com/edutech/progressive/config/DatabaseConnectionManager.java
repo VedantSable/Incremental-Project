@@ -1,0 +1,33 @@
+package com.edutech.progressive.config;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
+public class DatabaseConnectionManager {
+
+    @Autowired
+    private static Environment env;
+
+    private static Properties properties = new Properties();
+
+    private static void loadProperties(){
+        String url = env.getProperty("spring.datasource.url");
+        String username = env.getProperty("spring.datasource.username");
+        String password = env.getProperty("spring.datasource.password");
+
+        properties.put("url" , url);
+        properties.put("username", username);
+        properties.put("password", password);
+    }
+
+    public static Connection getConnection() throws SQLException{
+        
+        Connection connection = DriverManager.getConnection((String)properties.get("url"),(String) properties.get("username"),(String) properties.get("password"));
+        return connection;
+    }
+}
