@@ -28,12 +28,13 @@ public class AccountServiceImplArraylist implements AccountService{
 
     @Override
     public List<Accounts> getAllAccountsSortedByBalance() throws SQLException {
-        Collections.sort(accountsList);
+        List<Accounts> sortedList = new ArrayList<>(accountsList);
+        Collections.sort(sortedList);
         return accountsList;
     }
 
     public void emptyArrayList(){
-        accountsList.clear();
+        accountsList = new ArrayList<>();
     }
 
 }

@@ -29,6 +29,11 @@ public class Accounts implements Comparable<Accounts>{
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    @Override
+    public String toString() {
+        return "Accounts [accountId=" + accountId + ", customerId=" + customerId + ", balance=" + balance + "]";
+    }
     @Override
     public int compareTo(Accounts o) {
         return Double.compare(this.getBalance(), o.getBalance());

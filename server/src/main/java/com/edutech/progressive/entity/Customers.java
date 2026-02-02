@@ -10,12 +10,15 @@ public class Customers implements Comparable<Customers>{
     private String role;
     public Customers() {
     }
+
+    ////////role added because needed in jdbc getCustomerById operation Day 3
     public Customers(int customerId, String name, String email, String username, String password) {
         this.customerId = customerId;
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
+        //this.role=role;
     }
     public int getCustomerId() {
         return customerId;

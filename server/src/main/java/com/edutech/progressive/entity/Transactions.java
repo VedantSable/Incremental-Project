@@ -1,21 +1,30 @@
 package com.edutech.progressive.entity;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+@Entity
 public class Transactions {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transactionId;
     private int accountId;
     private double amount;
     private String transactionType;
     private Date transactionDate;
-    public Transactions() {
+
+    public Transactions(){
     }
-    public Transactions(int transactionId, int accountId, double amount, String transactionType, Date transactionDate) {
+
+    public Transactions(int transactionId, int accountId, double amount, Date transactionDate,String transactionType) {
         this.transactionId = transactionId;
         this.accountId = accountId;
         this.amount = amount;
-        this.transactionType = transactionType;
         this.transactionDate = transactionDate;
+        this.transactionType = transactionType;
     }
     public int getTransactionId() {
         return transactionId;

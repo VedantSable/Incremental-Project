@@ -11,6 +11,7 @@ import com.edutech.progressive.service.CustomerService;
 public class CustomerServiceImplArraylist implements CustomerService{
 
     private static List<Customers> customersList = new ArrayList<>();
+    
     @Override
     public List<Customers> getAllCustomers() throws SQLException {
         return customersList;
@@ -18,7 +19,8 @@ public class CustomerServiceImplArraylist implements CustomerService{
 
     @Override
     public int addCustomer(Customers customers) throws SQLException {
-        customersList.add(customers);
+        List<Customers> sortedList = new ArrayList<>(customersList);
+        Collections.sort(sortedList);
         int size = customersList.size();
         return size;
     }

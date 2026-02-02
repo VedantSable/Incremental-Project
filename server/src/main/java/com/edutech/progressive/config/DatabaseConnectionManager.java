@@ -1,5 +1,7 @@
 package com.edutech.progressive.config;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,19 +17,26 @@ public class DatabaseConnectionManager {
 
     private static Properties properties = new Properties();
 
-    private static void loadProperties(){
-        String url = env.getProperty("spring.datasource.url");
-        String username = env.getProperty("spring.datasource.username");
-        String password = env.getProperty("spring.datasource.password");
+    private static void loadProperties()throws IOException{
+        properties.load(new FileInputStream("/home/coder/app/server/src/main/resources/application.properties"));
+        // String url = env.getProperty("spring.datasource.url");
+        // String username = env.getProperty("spring.datasource.username");
+        // String password = env.getProperty("spring.datasource.password");
+        
 
-        properties.put("url" , url);
-        properties.put("username", username);
-        properties.put("password", password);
+        // properties.put("url" , url);
+        // properties.put("username", username);
+        // properties.put("password", password);
     }
 
     public static Connection getConnection() throws SQLException{
-        
-        Connection connection = DriverManager.getConnection((String)properties.get("url"),(String) properties.get("username"),(String) properties.get("password"));
+
+        try{
+            loadProperties();
+        }catch(IOException e){
+            System.out.println(e);
+        }
+        Connection connection = DriverManager.getConnection(properties.getProperty("spring.datasource.url"),properties.getProperty("spring.datasource.username"),properties.getProperty("spring.datasource.password"));
         return connection;
     }
 }
