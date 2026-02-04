@@ -59,7 +59,7 @@ public class TransactionDAOImpl implements TransactionDAO{
 
     /////////////////////done
     @Override
-    public Transactions getTransactionById(int transactionId)throws SQLException {
+    public Transactions getTransactionById(int transactionId)throws SQLException{
         Transactions transactions = null;
         String sql = "Select * from transactions where transaction_id=?";
 
@@ -70,6 +70,7 @@ public class TransactionDAOImpl implements TransactionDAO{
             if(rs.next()){
                 transactions = new Transactions(rs.getInt("transaction_id"), rs.getInt("account_id"), rs.getDouble("amount"), rs.getDate("transaction_date"), rs.getString("transaction_type"));
             }
+
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -124,6 +125,7 @@ public class TransactionDAOImpl implements TransactionDAO{
                     Transactions transaction = new Transactions(rs.getInt("transaction_id"), rs.getInt("account_id"), rs.getDouble("amount"), rs.getDate("transaction_date"), rs.getString("transaction_type"));
                     transactionList.add(transaction);
                 }
+                
         }catch(SQLException e){
             e.printStackTrace();
         }

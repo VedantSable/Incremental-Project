@@ -13,4 +13,5 @@ public interface AccountRepository extends JpaRepository<Accounts,Integer>{
     public List<Accounts> findAllByOrderByBalanceAsc() throws SQLException;
 
     public List<Accounts> findAccountsByCustomerId(int customerId)throws SQLException;
+
 }

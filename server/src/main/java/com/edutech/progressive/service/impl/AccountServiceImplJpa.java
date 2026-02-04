@@ -1,6 +1,7 @@
 package com.edutech.progressive.service.impl;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -13,10 +14,14 @@ import com.edutech.progressive.repository.AccountRepository;
 import com.edutech.progressive.service.AccountService;
 
 @Service
-public class AccountServiceImplJpa{
+public class AccountServiceImplJpa implements AccountService{
 
     @Autowired
     private AccountRepository accountRepository;
+
+    public AccountServiceImplJpa(AccountRepository accountRepository){
+        this.accountRepository=accountRepository;
+    }
 
     
     public List<Accounts> getAllAccounts() throws SQLException {
@@ -40,19 +45,28 @@ public class AccountServiceImplJpa{
 
     public void updateAccount(Accounts accounts) throws SQLException{
         //accountRepository.save(accounts);
+        if(accounts == null || !accountRepository.existsById(accounts.getAccountId())){
+            return;
+        }
+
+        accountRepository.save(accounts);
     }
 
     public void deleteAccount(int accountId){
         //accountRepository.deleteById(accountId);
+        accountRepository.deleteById(accountId);
     }
 
     public List<Accounts> getAllAccountsSortedByBalance() throws SQLException {
         
-        // List<Accounts> list = accountRepository.findAll();
+        List<Accounts> list = accountRepository.findAll();
+
+        Collections.sort(list);
 
         // list.sort(Comparator.comparingDouble(Accounts::getBalance));
         // return list;
-        return accountRepository.findAllByOrderByBalanceAsc();
+        // return accountRepository.findAllByOrderByBalanceAsc();
+        return list;
     }
     
     

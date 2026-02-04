@@ -20,16 +20,16 @@ public class AccountDAOImpl implements AccountDAO {
 
     private List<Accounts> accountsList = new ArrayList<>();
 
-    // private Connection connection;
+    private Connection connection;
 
-    // public AccountDAOImpl() {
-    //     try {
-    //         this.connection = DatabaseConnectionManager.getConnection();
-    //     } catch (SQLException e) {
-    //         // TODO Auto-generated catch block
-    //         e.printStackTrace();
-    //     }
-    // }
+    public AccountDAOImpl() {
+        try {
+            this.connection = DatabaseConnectionManager.getConnection();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     ////////////////////done
     @Override
@@ -37,7 +37,7 @@ public class AccountDAOImpl implements AccountDAO {
         
         String sql = "INSERT INTO accounts(customer_id,balance) VALUES(?,?)";
 
-        try(Connection connection1 = DatabaseConnectionManager.getConnection();PreparedStatement ps = connection1.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)){
+        try(PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)){
             ps.setInt(1,accounts.getCustomerId());
             ps.setDouble(2,accounts.getBalance());
             ps.executeUpdate();
@@ -64,7 +64,7 @@ public class AccountDAOImpl implements AccountDAO {
         
         
 
-        try(Connection connection1 = DatabaseConnectionManager.getConnection();PreparedStatement ps = connection1.prepareStatement(sql)){
+        try(PreparedStatement ps = connection.prepareStatement(sql)){
                 ps.setInt(1,accountId);
                 ResultSet rs = ps.executeQuery();
                 
@@ -91,7 +91,7 @@ public class AccountDAOImpl implements AccountDAO {
 
         String sql = "UPDATE accounts SET customer_id=?,balance=? where account_id=?";
 
-        try(Connection connection1 = DatabaseConnectionManager.getConnection();PreparedStatement ps = connection1.prepareStatement(sql)){
+        try(PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1,accounts.getCustomerId());
             ps.setDouble(2, accounts.getBalance());
             ps.setInt(3, accounts.getAccountId());
@@ -107,8 +107,8 @@ public class AccountDAOImpl implements AccountDAO {
     public void deleteAccount(int accountId)throws SQLException{
         
         String sql = "DELETE FROM accounts where account_id=?";
-        Connection connection1 = DatabaseConnectionManager.getConnection();
-        try(PreparedStatement ps = connection1.prepareStatement(sql)){
+        
+        try(PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1,accountId);
             ps.executeUpdate();
         }catch(SQLException e){
@@ -124,7 +124,7 @@ public class AccountDAOImpl implements AccountDAO {
         List<Accounts> accounts = new ArrayList<>();
         String sql = "Select * from accounts";
 
-        try(Connection connection1 = DatabaseConnectionManager.getConnection();PreparedStatement ps = connection1.prepareStatement(sql)){
+        try(PreparedStatement ps = connection.prepareStatement(sql)){
 
             ResultSet rs = ps.executeQuery();
 
@@ -150,7 +150,7 @@ public class AccountDAOImpl implements AccountDAO {
         List<Accounts> accounts = new ArrayList<>();
         String sql = "Select * from accounts where customer_id=?";
 
-        try(Connection connection1 = DatabaseConnectionManager.getConnection();PreparedStatement ps = connection1.prepareStatement(sql)){
+        try(PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1, customer_id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
