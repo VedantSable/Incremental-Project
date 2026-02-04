@@ -6,12 +6,19 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.edutech.progressive.entity.Accounts;
 import com.edutech.progressive.service.AccountService;
 
 public class AccountServiceImplArraylist implements AccountService{
 
-    private static List<Accounts> accountsList = new ArrayList<>();
+    private static List<Accounts> accountsList;
+
+    public AccountServiceImplArraylist(List<Accounts> accountsList){
+        accountsList = new ArrayList<>(); 
+    }
+    
 
     @Override
     public List<Accounts> getAllAccounts() throws SQLException {
@@ -22,19 +29,19 @@ public class AccountServiceImplArraylist implements AccountService{
     @Override
     public int addAccount(Accounts accounts) throws SQLException {
         accountsList.add(accounts);
-        int size = accountsList.size();
-        return size;
+        
+        return accountsList.size();
     }
 
     @Override
     public List<Accounts> getAllAccountsSortedByBalance() throws SQLException {
-        List<Accounts> sortedList = new ArrayList<>(accountsList);
-        Collections.sort(sortedList);
+       // List<Accounts> sortedList = new ArrayList<>(accountsList);
+        Collections.sort(accountsList);
         return accountsList;
     }
 
     public void emptyArrayList(){
-        accountsList = new ArrayList<>();
+        accountsList.clear();
     }
 
 }

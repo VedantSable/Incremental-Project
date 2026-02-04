@@ -10,10 +10,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.edutech.progressive.config.DatabaseConnectionManager;
 import com.edutech.progressive.entity.Accounts;
-
+@Component
 public class AccountDAOImpl implements AccountDAO {
 
     private List<Accounts> accountsList = new ArrayList<>();

@@ -4,8 +4,10 @@ package com.edutech.progressive.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.edutech.progressive.entity.Customers;
+import org.springframework.stereotype.Service;
 
+import com.edutech.progressive.entity.Customers;
+@Service
 public interface CustomerService {
     List<Customers> getAllCustomers() throws SQLException;
     int addCustomer(Customers customers) throws SQLException;

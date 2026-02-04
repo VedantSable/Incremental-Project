@@ -8,12 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.edutech.progressive.config.DatabaseConnectionManager;
 
 //import org.h2.mvstore.tx.Transaction;
 
 import com.edutech.progressive.entity.Transactions;
-
+@Component
 public class TransactionDAOImpl implements TransactionDAO{
 
     private Connection connection;

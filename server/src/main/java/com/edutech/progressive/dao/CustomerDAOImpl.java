@@ -8,10 +8,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.edutech.progressive.config.DatabaseConnectionManager;
 import com.edutech.progressive.dto.CustomerAccountInfo;
 import com.edutech.progressive.entity.Customers;
 
+@Component
+@Profile("prod")
 public class CustomerDAOImpl implements CustomerDAO{
 
     List<Customers> customerList = new ArrayList<>();

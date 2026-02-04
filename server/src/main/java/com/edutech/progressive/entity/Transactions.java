@@ -57,5 +57,12 @@ public class Transactions {
         this.transactionDate = transactionDate;
     }
 
+    public Transactions(int accountId, double amount, String transactionType, Date transactionDate) {
+        this.accountId = accountId;
+        this.amount = amount;
+        this.transactionType = transactionType;
+        this.transactionDate = transactionDate;
+    }
+
     
 }

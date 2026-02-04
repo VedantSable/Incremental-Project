@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.edutech.progressive.dao.AccountDAO;
 import com.edutech.progressive.dao.AccountDAOImpl;
 import com.edutech.progressive.entity.Accounts;
@@ -13,12 +15,16 @@ import com.edutech.progressive.service.AccountService;
 public class AccountServiceImpl implements AccountService{
 
     private AccountDAO accountDAO;
+    private static List<Accounts> accountsList = new ArrayList<>();
     
     public AccountServiceImpl(AccountDAO accountDAO) {
         this.accountDAO = accountDAO;
     }
 
-    private static List<Accounts> accountsList = new ArrayList<>();
+    public AccountServiceImpl(AccountDAOImpl accountDAO){
+        this.accountDAO = accountDAO;
+    }
+
 
     @Override
     public List<Accounts> getAllAccounts() throws SQLException {
@@ -36,10 +42,10 @@ public class AccountServiceImpl implements AccountService{
     ////////did not understand????  /////done
     @Override
     public List<Accounts> getAllAccountsSortedByBalance() throws SQLException {
-            //List<Accounts> list = accountDAO.getAllAccounts();
-            accountsList = accountDAO.getAllAccounts();
+            List<Accounts> sortList = new ArrayList<>(accountDAO.getAllAccounts());
+            //accountsList = accountDAO.getAllAccounts();
             Collections.sort(accountsList);
-            return accountsList;
+            return sortList;
     }
 
 
@@ -51,14 +57,12 @@ public class AccountServiceImpl implements AccountService{
             // }
 
             //return accountDAO.getAllAccountsByCustomers(userId);
-            return accountDAO.getAllAccountsByCustomers(userId);
+            return accountsList;
     }
 
     public Accounts getAccountById(int accountId) throws SQLException{
         
-        Accounts account = accountDAO.getAccountById(accountId);
-
-        return account;
+        return accountDAO.getAccountById(accountId);
        // return accountDAO.getAccountById(accountId);
     }
 

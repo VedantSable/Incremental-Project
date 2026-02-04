@@ -1,6 +1,15 @@
 package com.edutech.progressive.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Accounts implements Comparable<Accounts>{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int accountId;
     private int customerId;
     private double balance;
@@ -11,6 +20,7 @@ public class Accounts implements Comparable<Accounts>{
         this.customerId = customerId;
         this.balance = balance;
     }
+    
     public int getAccountId() {
         return accountId;
     }
@@ -31,12 +41,12 @@ public class Accounts implements Comparable<Accounts>{
     }
 
     @Override
-    public String toString() {
-        return "Accounts [accountId=" + accountId + ", customerId=" + customerId + ", balance=" + balance + "]";
-    }
-    @Override
     public int compareTo(Accounts o) {
         return Double.compare(this.getBalance(), o.getBalance());
+    }
+    public Accounts(int customerId, double balance) {
+        this.customerId = customerId;
+        this.balance = balance;
     }
 
     

@@ -1,7 +1,15 @@
 package com.edutech.progressive.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Customers implements Comparable<Customers>{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerId;
     private String name;
     private String email;
@@ -60,6 +68,14 @@ public class Customers implements Comparable<Customers>{
     @Override
     public int compareTo(Customers o) {
         return this.getName().compareTo(o.getName());
+    }
+
+    public Customers(String name, String email, String username, String password, String role) {
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     
