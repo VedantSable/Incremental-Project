@@ -9,17 +9,20 @@ import org.springframework.stereotype.Service;
 import com.edutech.progressive.entity.Transactions;
 import com.edutech.progressive.repository.AccountRepository;
 import com.edutech.progressive.repository.TransactionRepository;
+import com.edutech.progressive.service.TransactionService;
 
 @Service
-public class TransactionServiceImplJpa {
+public class TransactionServiceImplJpa implements TransactionService{
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
-    
+    @Autowired
+    private final AccountRepository accountRepository;
 
-    public TransactionServiceImplJpa(TransactionRepository transactionRepository) {
+    public TransactionServiceImplJpa(TransactionRepository transactionRepository,AccountRepository accountRepository) {
         this.transactionRepository = transactionRepository;
+        this.accountRepository = accountRepository;
     }
 
     public List<Transactions> getAllTransactions() throws SQLException{
@@ -43,7 +46,8 @@ public class TransactionServiceImplJpa {
         transactionRepository.deleteById(transactionId);
     }
 
-    public List<Transactions> getTransactionByCustomerId(int customerId)throws SQLException{
+    public List<Transactions> getTransactionsByCustomerId(int customerId)throws SQLException{
         return transactionRepository.findByAccountIdOrderByTransactionDateDesc(customerId);
     }
+
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.edutech.progressive.entity.Transactions;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transactions,Integer>{
+    
     List<Transactions> findByAccountIdOrderByTransactionDateDesc(int accountId);
+
 }
 
